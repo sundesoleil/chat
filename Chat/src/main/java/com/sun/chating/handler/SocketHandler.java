@@ -2,11 +2,15 @@ package com.sun.chating.handler;
 
 import java.util.HashMap;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
+
 
 @Component
 public class SocketHandler extends TextWebSocketHandler {
@@ -39,5 +43,16 @@ public class SocketHandler extends TextWebSocketHandler {
 		// 소켓 종료
 		sessionMap.remove(session.getId());
 		super.afterConnectionClosed(session, status);
+	}
+	
+	private static JSONObject JsonToObjectParser(String jsonStr) { 
+		JSONParser parser = new JSONParser();
+		JSONObject obj = null;
+		try {
+			obj = (JSONObject)parser.parse(jsonStr);
+		}catch(ParseException e) {
+			e.printStackTrace();
+		}
+		return obj;
 	}
 }
