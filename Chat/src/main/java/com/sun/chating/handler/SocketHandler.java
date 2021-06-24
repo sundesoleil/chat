@@ -21,6 +21,7 @@ public class SocketHandler extends TextWebSocketHandler {
 	public void handleTextMessage(WebSocketSession session, TextMessage message) {
 		// 메시지 발송
 		String msg = message.getPayload();
+		JSONObject obj = JsonToObjectParser(msg);
 		for(String key : sessionMap.keySet()) {
 			WebSocketSession wss = sessionMap.get(key);
 			try {
@@ -31,11 +32,17 @@ public class SocketHandler extends TextWebSocketHandler {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		// 소켓 연결
 		super.afterConnectionEstablished(session);
 		sessionMap.put(session.getId(), session);
+		JSONObject obj = new JSONObject();
+		obj.put("type", "getId"); // 생성된 세션을 저장하면 발신 메시지의 타입은 getId라고 명시
+		obj.put("sessionId", session.getId()); // 생성된 세션 ID값을 클라이언트단으로 발송
+		session.sendMessage(new TextMessage(obj.toJSONString()));
+		
 	}
 	
 	@Override
