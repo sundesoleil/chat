@@ -13,7 +13,9 @@
 <body>
 	<div id="container" class="container">
 		<h1>채팅</h1>
+		<input type="hidden" id="sessionId" value=""> <!-- 현재의 세션 값 저장용도 -->
 		<div id="chating" class="chating"></div>
+		
 		<div id="yourName">
 			<table class="inputTable">
 				<tr>
@@ -23,15 +25,16 @@
 				</tr>
 			</table>
 		</div>
-			<div id="yourMsg">
-				<table class="inputTable">
-				<tr>
-					<th>메시지</th>
-					<th><input id="chatting" placeholder="메시지를 입력하세요"></th>
-					<th><button onclick="send()" id="sendBtn">전송하기</button></th>
-				</tr>
-				</table>
-			</div>
+		
+		<div id="yourMsg">	
+			<table class="inputTable">
+			<tr>
+				<th>메시지</th>
+				<th><input id="chatting" placeholder="메시지를 입력하세요"></th>
+				<th><button onclick="send()" id="sendBtn">전송하기</button></th>
+			</tr>
+			</table>
+		</div>
 	</div>
 </body>
 </html>

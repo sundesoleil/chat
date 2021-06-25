@@ -20,7 +20,11 @@
 	height: 500px;
 	overflow: auto;
 }
-.chating p{
+.chating .me{
+	color: #fff;
+	text-align: right;
+}
+.chating .others{
 	color: #fff;
 	text-align: left;
 }

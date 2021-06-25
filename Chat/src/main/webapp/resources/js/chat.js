@@ -11,14 +11,35 @@ function wsEvt(){
 	}
 	
 	ws.onmessage = function(data){
+		
+		// 메시지 받으면 동작
 		var msg = data.data;
+		
 		if(msg != null && msg.trim() != ""){
-			$("#chating").append("<p>" + msg + "</p>");
+			
+			var x = JSON.parse(msg);
+			
+			if(x.type == "getId"){
+				var si = x.sessionId != null ? x.sessionId : "";
+				if(si != ""){
+					$("#sessionId").val(si);
+				}
+			}
+			
+			else if(x.type == "message"){
+				if(x.sessionId == $("#sessionId").val()){
+					$("#chating").append("<p class='me'>나: " + x.msg + "</p>");
+				}else{
+					$("#chating").append("<p class='others'>" + x.userName + ": " + x.msg + "</p>");
+				}
+				
+			}else{
+				console.warn("unknown type")
+			}
 		}
 	}
-	
 	document.addEventListener("keypress", function(e){
-		if(e.keyCode == 13){
+		if(e.keycode == 13){
 			send();
 		}
 	});
@@ -38,8 +59,12 @@ function chatName(){
 }
 
 function send(){
-	var uN = $("#userName").val();
-	var msg = $("#chatting").val();
-	ws.send(uN + ":" + msg);
+	var option = {
+		type: "message",
+		sessionId: $("#sessionId").val(),
+		userName: $("#userName").val(),
+		msg: $("#chatting").val()
+	}
+	ws.send(JSON.stringify(option));
 	$("#chatting").val("");
 }
