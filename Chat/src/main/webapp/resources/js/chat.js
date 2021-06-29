@@ -1,7 +1,8 @@
 var ws;
 
 function wsOpen(){
-	ws = new WebSocket("ws://" + location.host + "/chating");
+	// 웹소켓 전송시 현재 방 번호 넘기기
+	ws = new WebSocket("ws://" + location.host + "/chating/" + $("#roomNumber").val());
 	wsEvt();
 }
 
@@ -39,7 +40,7 @@ function wsEvt(){
 		}
 	}
 	document.addEventListener("keypress", function(e){
-		if(e.keycode == 13){
+		if(e.keyCode == 13){
 			send();
 		}
 	});
@@ -61,10 +62,11 @@ function chatName(){
 function send(){
 	var option = {
 		type: "message",
+		roomNumber:$("#roomNumber").val(),
 		sessionId: $("#sessionId").val(),
 		userName: $("#userName").val(),
 		msg: $("#chatting").val()
 	}
-	ws.send(JSON.stringify(option));
+	ws.send(JSON.stringify(option))
 	$("#chatting").val("");
 }

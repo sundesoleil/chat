@@ -13,7 +13,7 @@ function getRoom(){
 function createRoom(){
 	$("#createRoom").click(function(){
 		var msg = {
-			roomName: $("#roomName").value()
+			roomName: $('#roomName').val()
 		};
 		commonAjax('/createRoom', msg, 'post', function(result){
 			createChatingRoom(result);

@@ -12,8 +12,10 @@
 </head>
 <body>
 	<div id="container" class="container">
-		<h1>채팅</h1>
+		<h1>${roomName }의 채팅방</h1>
 		<input type="hidden" id="sessionId" value=""> <!-- 현재의 세션 값 저장용도 -->
+		<input type="hidden" id="roomNumber" value="${roomNumber }">
+		
 		<div id="chating" class="chating"></div>
 		
 		<div id="yourName">
