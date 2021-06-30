@@ -35,3 +35,13 @@ input{
 #yourMsg{
 	display: none;
 }
+.msgImg{
+	width: 200px;
+	height: 125px;
+}
+.clearBoth{
+	clear: both;
+}
+.img{
+	float: right;
+}

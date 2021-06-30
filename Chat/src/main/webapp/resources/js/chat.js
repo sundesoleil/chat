@@ -37,6 +37,9 @@ function wsEvt(){
 			}else{
 				console.warn("unknown type")
 			}
+		}else{
+			var url = URL.createObjectURL(new Blob[msg]);
+			$("#chating").append("<div class='img'><img class='msgImg' src="+url+"></div><div class='clearBoth'></div>");
 		}
 	}
 	document.addEventListener("keypress", function(e){
@@ -69,4 +72,24 @@ function send(){
 	}
 	ws.send(JSON.stringify(option))
 	$("#chatting").val("");
+}
+
+function fileSend(){
+	var file = document.querySelector("#fileUpload").files[0];
+	var fileReader = new FileReader();
+	fileReader.onload = function(){
+		var param = {
+			type: "fileUpload",
+			file: file,
+			roomNumber: $("#roomNumber").val(),
+			sessionId: $("#sessionId").val(),
+			msg: $("#chatting").val(),
+			userName: $("#userName").val()
+		}
+		ws.send(JSON.stringify(param));
+	
+	arrayBuffer = this.result;
+	ws.send(arrayBuffer);
+	};
+	fileReader.readAsArrayBuffer(file);
 }
